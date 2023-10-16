@@ -51,29 +51,3 @@ public class Login extends HttpServlet {
             out.println("</div>");
             out.println("</body>");
             out.println("</html>");
-            // out.println("<!DOCTYPE html>");
-            // out.println("<html>");
-            // out.println("<head>");
-            // out.println("<title>Login to your Todo list</title>");
-            // out.println("</head>");
-            // out.println("<body>");
-            // out.println("<h1>Rpise Login</h1>");
-            // out.println("<form action='Authenticator'>"
-            // + " <div style='padding:30px'>"
-            // + " <label>Username</label>"
-            // + " <input type='text' size='30' name='username'/>"
-            // + " <br>"
-            // + " <br>"
-            // + " <label>Password</label>"
-            // + " <input type='password' size='30' "
-            // + " name='password'/>"
-            // + " <br>"
-            // + " <br>"
-            // + " <input type='submit' value='Go'/>"
-            // + " </div>"
-            // + " </form>");
-            // out.println("</body>");
-            // out.println("</html>");
-        }
-    }
-}
