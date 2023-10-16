@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Note App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3caca;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 60%;
+            padding: 20px;
+            background-color: #dde38b;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #noteForm {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #noteTitle,
+        #noteContent {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        #noteTitle {
+            font-weight: bold;
+        }
+
+        button {
+            padding: 5px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .clearAll {
+        margin: 20px 20px; /* Adds vertical space of 20 pixels */
+        }  
+        
+        .logoutButton{
+        margin: 20px 20px; /* Adds vertical space of 20 pixels */
+        }  
+
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #f2f2f2;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li button {
+            background-color: #f44336;
+        }
+
+        li button:hover {
+            background-color: #cdd853;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Simple Note App</h1>
+
+        <!-- Form to create a new note -->
+        <form id="noteForm">
+            <input type="text" id="noteTitle" placeholder="Note Title" required>
+            <textarea id="noteContent" placeholder="Note Content" required></textarea>
+            <button type="button" id="addNote">Add Note</button>
+        </form>
+
+        <!-- List of existing notes -->
+        <ul id="noteList"></ul>
+    </div>
+
+    <div>
+        <button type="button" id="clearAll">Clear All</button>
+    </div>
+
+    <div>
+        <button type="button" id="logoutButton" onclick="logout()">Logout</button>
+    </div>
+    
+
+    <script>
+        // Function to add a new note
+        function addNote() {
+            const title = document.getElementById("noteTitle").value;
+            const content = document.getElementById("noteContent").value;
+
+            if (title && content) {
+                // Create a new list item for the note
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `<strong>${title}:</strong> ${content}`;
+
+                // Add a delete button to the note
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.addEventListener("click", () => {
+                    listItem.remove(); // Use .remove() to delete the list item
+                    saveNotes();
+                });
+                listItem.appendChild(deleteButton);
+
+                // Add the note to the list
+                document.getElementById("noteList").appendChild(listItem);
+
+                // Clear the form
+                document.getElementById("noteTitle").value = "";
+                document.getElementById("noteContent").value = "";
+
+                // Save notes to storage
+                saveNotes();
+            }
+        }
+
+        function logout() {
+        // Redirect to the logout servlet (e.g., logout.java)
+        window.location.href = 'Logout'; // Adjust the URL as needed
+        }
+
+
+        // Function to save notes to local storage
+        function saveNotes() {
+            const notes = [];
+            const listItems = document.querySelectorAll("#noteList li");
+
+            listItems.forEach((item) => {
+                notes.push(item.innerHTML);
+            });
+
+            localStorage.setItem("notes", JSON.stringify(notes));
+        }
+
+        
+        // Function to load notes from local storage
+        function loadNotes() {
+            const notes = JSON.parse(localStorage.getItem("notes")) || [];
+            notes.forEach((note) => {
+                const listItem = document.createElement("li");
+                listItem.innerHTML = note;
+                document.getElementById("noteList").appendChild(listItem);
+            });
+        }
+
+        // Event listener for the "Add Note" button
+        document.getElementById("addNote").addEventListener("click", addNote);
+
+
+
+        // Load saved notes
+        loadNotes();
+
+        // Function to clear all notes
+        function clearAllNotes() {
+            const listItems = document.querySelectorAll("#noteList li");
+
+            listItems.forEach((item) => {
+                item.remove(); // Remove each list item
+            });
+
+            // Clear notes from storage
+            localStorage.removeItem("notes");
+        }
+
+        // Event listener for the "Clear All" button
+        document.getElementById("clearAll").addEventListener("click", clearAllNotes);
+
+
+    </script>
+</body>
