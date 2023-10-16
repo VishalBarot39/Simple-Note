@@ -64,33 +64,3 @@ public class Authenticator extends HttpServlet {
     }
 }
 
-// @Override
-// public void service(HttpServletRequest request, HttpServletResponse response)
-// throws ServletException, IOException {
-// response.setContentType("text/html;charset=UTF-8");
-// HttpSession session = request.getSession(false);
-// if (session.getAttribute("username") != null) {
-// request.getRequestDispatcher("Welcome").
-// forward(request, response);
-// } else {
-// String username = request.getParameter("username");
-// String password = request.getParameter("password");
-// if (username.equals("tom") && password.equals("cat")) {
-// session.setAttribute("username", username);
-// String redirect = (String)
-// session.getAttribute("redirect");
-// if (redirect != null) {
-// session.removeAttribute("redirect");
-// request.getRequestDispatcher(redirect).
-// forward(request, response);
-// } else {
-// request.getRequestDispatcher("Welcome").
-// forward(request, response);
-// }
-// } else {
-// request.getRequestDispatcher("Login").
-// forward(request, response);
-// }
-// }
-// }
-// }
